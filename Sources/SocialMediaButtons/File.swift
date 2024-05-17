@@ -22,17 +22,14 @@ struct A: View {
             Text("Button")
         }
     }
-    
     func printLetter(letter: String) -> Bool {
         print(letter)
         return true
     }
-    
     let printLettter: ((String) -> Bool) = { letter in
         print(letter)
         return true
     }
-    
     func runSomething(word: String, closure: (String) -> Bool) {
         closure(word)
     }
@@ -42,8 +39,6 @@ struct A: View {
             return true
         })
     }
-    
-    
 }
 class Calc {
     var soma: ((Int, Int) -> Int) = { a, b in
@@ -59,9 +54,11 @@ class Calc {
     func main() {
         
         let somaMultiplicada = operacaoMult(a: 2, b: 3, mult: 5, operacao: soma)
-        
         let subMultiplicada = operacaoMult(a: 2, b: 3, mult: 5, operacao: { $0 - $1 })
-        
         let sub2Multiplicada = operacaoMult(a: 2, b: 3, mult: 5) { $0 - $1 }
+
+        print(somaMultiplicada)
+        print(subMultiplicada)
+        print(sub2Multiplicada)
     }
 }

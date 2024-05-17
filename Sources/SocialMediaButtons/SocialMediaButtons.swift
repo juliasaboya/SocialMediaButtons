@@ -1,10 +1,12 @@
 import SwiftUI
 
-struct AnimatedButtons: View {
+struct NotificationButton: View {
     @State private var startKeyAnimation: Bool = false
-    var icon: String = "heart.fill"
+    var icon: String {
+        startKeyAnimation ? "bell.fill" :  "bell"
+    }
     var shouldFill: Bool = false
-    var semaphore: Bool = true
+    var buttonColor: Color = .yellow
     var body: some View {
         VStack {
             Button {
@@ -22,19 +24,19 @@ struct AnimatedButtons: View {
                             .offset(x: frame.offsetX, y: frame.offsetY)
                         
                     } keyframes: { frame in
-//                        KeyframeTrack(\.offsetY) {
-//                            CubicKeyframe(-40, duration: 0.5)
-//                            CubicKeyframe(0, duration: 0.35)
-//                            CubicKeyframe(-28.5, duration: 0.4)
-//                            CubicKeyframe(0, duration: 0.3)
-//                            CubicKeyframe(-22.5, duration: 0.3)
-//                            CubicKeyframe(0, duration: 0.25)
-//                            CubicKeyframe(-15, duration: 0.2)
-//                            CubicKeyframe(0, duration: 0.2)
-//                            CubicKeyframe(-7.5, duration: 0.15)
-//                            CubicKeyframe(0, duration: 0.175)
-//
-//                            }
+                        KeyframeTrack(\.offsetY) {
+                            CubicKeyframe(-40, duration: 0.5)
+                            CubicKeyframe(0, duration: 0.35)
+                            CubicKeyframe(-28.5, duration: 0.4)
+                            CubicKeyframe(0, duration: 0.3)
+                            CubicKeyframe(-22.5, duration: 0.3)
+                            CubicKeyframe(0, duration: 0.25)
+                            CubicKeyframe(-15, duration: 0.2)
+                            CubicKeyframe(0, duration: 0.2)
+                            CubicKeyframe(-7.5, duration: 0.15)
+                            CubicKeyframe(0, duration: 0.175)
+
+                            }
                         KeyframeTrack(\.offsetX) {
                             CubicKeyframe(7, duration: 0.05)
                             CubicKeyframe(-7, duration: 0.05)
@@ -60,9 +62,50 @@ struct AnimatedButtons: View {
                                 CubicKeyframe(.degrees(0), duration: 0.05)
                             
                         }
-                    } .foregroundStyle(.red)
+                    } .foregroundStyle(buttonColor)
             }
             
+        }
+        .padding()
+    }
+}
+struct ReportButton: View {
+    @State private var startKeyAnimation: Bool = false
+    var icon: String {
+        startKeyAnimation ? "exclamationmark.bubble.fill" :  "exclamationmark.bubble"
+    }
+    var shouldFill: Bool = false
+    var buttonColor: Color = .red
+    var body: some View {
+        VStack {
+            Button {
+                startKeyAnimation.toggle()
+            } label: {
+                Image(systemName: icon)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 100)
+                    .keyframeAnimator(initialValue: Keyframe(), trigger: startKeyAnimation) { view, frame in
+                        // editando a dita cuja
+                        view
+                            .scaleEffect(frame.scale)
+                            .rotationEffect(frame.rotation, anchor: .bottom)
+                            .offset(x: frame.offsetX, y: frame.offsetY)
+                    } keyframes: { frame in
+                        KeyframeTrack(\.scale){
+                            SpringKeyframe(1.3, duration: 0.3, spring: .bouncy )
+                            SpringKeyframe(0.75, duration: 0.15, spring: .snappy )
+                            SpringKeyframe(1.3, duration: 0.3, spring: .bouncy )
+                            SpringKeyframe(0.75, duration: 0.15, spring: .snappy )
+                            SpringKeyframe(1.3, duration: 0.3, spring: .bouncy )
+
+//                            SpringKeyframe(1.15, duration: 0.15, spring: .bouncy )
+                            SpringKeyframe(1.0, duration: 0.3, spring: .smooth)
+                        }
+
+                    } .foregroundStyle(buttonColor)
+            }
+
         }
         .padding()
     }
@@ -77,7 +120,7 @@ struct Keyframe {
 
 
 #Preview {
-    AnimatedButtons()
+    NotificationButton()
 }
 
 // TODO: Estudar Closures
