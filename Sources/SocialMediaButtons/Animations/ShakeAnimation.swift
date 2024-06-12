@@ -7,22 +7,25 @@
 
 import SwiftUI
 
-struct ShakeAnimation: ViewModifier {
+public struct ShakeAnimation: ViewModifier {
 
     //    enum `Type` {
     //        case toggleFill
     //        case `default`
     //    }
-
-    let duration: TimeInterval
+    var duration: TimeInterval
     @Binding var startKeyAnimation: Bool
-    let iconColor: Color
-    func body(content: Content) -> some View {
+
+    public init(duration: TimeInterval, startKeyAnimation: Binding<Bool>) {
+        self.duration = duration
+        self._startKeyAnimation = startKeyAnimation
+    }
+
+    public func body(content: Content) -> some View {
         content
             .keyframeAnimator(initialValue: Keyframe(), trigger: startKeyAnimation) { view, frame in
                 // editando a dita cuja
                 view
-                    .offset(x: frame.offsetX, y: frame.offsetY)
                     .rotationEffect(frame.rotation, anchor: .bottom)
             } keyframes: { _ in
                 KeyframeTrack(\.offsetX) {
@@ -45,6 +48,7 @@ struct ShakeAnimation: ViewModifier {
                 }
             }
     }
+    
 }
 
 

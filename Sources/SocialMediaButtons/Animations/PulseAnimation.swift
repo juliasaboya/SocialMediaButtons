@@ -7,10 +7,16 @@
 
 import SwiftUI
 
-struct ScaleAnimation: ViewModifier {
-    let duration: TimeInterval
+public struct ScaleAnimation: ViewModifier {
+    var duration: TimeInterval
     @Binding var startKeyAnimation: Bool
-    func body(content: Content) -> some View {
+
+    public init(duration: TimeInterval, startKeyAnimation: Binding<Bool>) {
+        self.duration = duration
+        self._startKeyAnimation = startKeyAnimation
+    }
+
+    public func body(content: Content) -> some View {
         content
             .keyframeAnimator(initialValue: Keyframe(), trigger: startKeyAnimation) { view, frame in
                 view
