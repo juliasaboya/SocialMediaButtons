@@ -16,12 +16,12 @@ public struct MovingLogo: ViewModifier {
     }
     public func body(content: Content) -> some View {
         content
-            .keyframeAnimator(initialValue: Keyframe(), trigger: startAnimation){ view, frame in
+            .keyframeAnimator(initialValue: Properties(), trigger: startAnimation){ view, frame in
                 view
                     .offset(x: frame.offsetX)
             } keyframes:{ _ in
                 KeyframeTrack(\.offsetX){
-                    CubicKeyframe(115, duration: 1)
+                    CubicKeyframe(170, duration: 1)
 
                 }
             }

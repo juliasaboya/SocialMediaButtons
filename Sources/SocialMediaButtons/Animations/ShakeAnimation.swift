@@ -23,7 +23,7 @@ public struct ShakeAnimation: ViewModifier {
 
     public func body(content: Content) -> some View {
         content
-            .keyframeAnimator(initialValue: Keyframe(), trigger: startKeyAnimation) { view, frame in
+            .keyframeAnimator(initialValue: Properties(), trigger: startKeyAnimation) { view, frame in
                 // editando a dita cuja
                 view
                     .rotationEffect(frame.rotation, anchor: .bottom)

@@ -15,19 +15,42 @@ public struct ScaleAnimation: ViewModifier {
         self.duration = duration
         self._startKeyAnimation = startKeyAnimation
     }
-
     public func body(content: Content) -> some View {
         content
-            .keyframeAnimator(initialValue: Keyframe(), trigger: startKeyAnimation) { view, frame in
+            .keyframeAnimator(
+                initialValue: Properties(),
+                trigger: startKeyAnimation
+            ) { view, frame in
                 view
                     .scaleEffect(frame.scale)
-            } keyframes: { _ in
-                KeyframeTrack(\.scale){
-                    SpringKeyframe(1.3, duration: 0.3, spring: .bouncy )
-                    SpringKeyframe(0.75, duration: 0.15, spring: .snappy )
-                    SpringKeyframe(1.15, duration: 0.15, spring: .bouncy )
-                    SpringKeyframe(1.0, duration: 0.3, spring: .smooth)
+            } keyframes: { prop in
+                KeyframeTrack(\.scale) {
+                    SpringKeyframe(1.3, duration: duration * 0.3, spring: .bouncy)
+                    SpringKeyframe(0.75, duration: duration * 0.15, spring: .snappy)
+                    SpringKeyframe(1.15, duration: duration * 0.15, spring: .bouncy)
+                    SpringKeyframe(1.0, duration: duration * 0.3, spring: .smooth)
                 }
             }
     }
+}
+
+struct Maracuja: View {
+    
+    @State var startKeyAnimation: Bool = false
+
+    var body: some View {
+        Circle()
+            .frame(width: 100, height: 100)
+            .modifier(ScaleAnimation(duration: 3, startKeyAnimation: $startKeyAnimation))
+        Spacer().frame(height: 100)
+        Button {
+            startKeyAnimation.toggle()
+        } label: {
+            Text("iniciar")
+        }
+    }
+}
+
+#Preview {
+    Maracuja()
 }

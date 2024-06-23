@@ -26,7 +26,6 @@ public struct MetamorfoseView: View {
     }
     var image: Image {
         changePhoto ? Image(systemName: "heart"): Image(systemName: "heart.fill")
-
     }
 
     var icon: String {

@@ -16,15 +16,13 @@ public struct VerticalStretch: ViewModifier {
     }
     public func body(content: Content) -> some View {
         content
-            .keyframeAnimator(initialValue: Keyframe(), trigger: startAnimation){ view, frame in
+            .keyframeAnimator(initialValue: Properties(), trigger: startAnimation){ view, frame in
                 view
                     .scaleEffect(y: frame.verticalSize)
             } keyframes:{ _ in
                 KeyframeTrack(\.verticalSize){
-                    SpringKeyframe(0.9, duration: 0.5, spring: .bouncy)
-                    SpringKeyframe(0.7, duration: 0.5, spring: .bouncy)
+                    SpringKeyframe(0.7, duration: 1, spring: .bouncy)
                     SpringKeyframe(1, duration: 1, spring: .bouncy)
-
                 }
             }
 

@@ -12,7 +12,7 @@ public struct QuickShake: ViewModifier {
     @Binding var startKeyAnimation: Bool
     public func body(content: Content) -> some View {
         content
-            .keyframeAnimator(initialValue: Keyframe(), trigger: startKeyAnimation) { view, frame in
+            .keyframeAnimator(initialValue: Properties(), trigger: startKeyAnimation) { view, frame in
                 view
                     .rotationEffect(frame.rotation)
             } keyframes: { _ in

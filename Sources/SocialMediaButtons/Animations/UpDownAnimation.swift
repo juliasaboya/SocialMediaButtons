@@ -17,8 +17,7 @@ public struct UpDownAnimation: ViewModifier {
     }
     public func body(content: Content) -> some View {
         content
-            .keyframeAnimator(initialValue: Keyframe(), trigger: startKeyAnimation) { view, frame in
-                // editando a dita cuja
+            .keyframeAnimator(initialValue: Properties(), trigger: startKeyAnimation) { view, frame in
                 view
                     .offset(y: frame.offsetY)
             } keyframes: { _ in
